@@ -1,27 +1,22 @@
 import { useState } from 'react'
 
-const Contador = ({ stock }) => {
+const Contador = ({ stock, initial = 1, onAdd }) => {
 
-  const [count, setCount] = useState(1)
+  const [count, setCount] = useState(initial)
 
-  const restarUnidad = () => {
-    if (count > 1) {
-      setCount(count => count - 1)
-    }
+  const addCounter = () => {
+    count < stock && setCount(count + 1)
   }
-  const agregarUnidad = () => {
-    if (count < stock) {
-      setCount(count => count + 1)
-    }
+  const substractCounter = () => {
+    count > initial && setCount(count - 1)
   }
-
 
   return (
     <div>
-      <button onClick={restarUnidad} className='btn'>-</button>
+      <button onClick={substractCounter} className='btn'>-</button>
       <span className='text-xl m-2'>{count}</span>
-      <button onClick={agregarUnidad} className='btn'>+</button>
-
+      <button onClick={addCounter} className='btn'>+</button>
+      <div onClick={() => onAdd(count)} className="btn">AGREGAR AL CARRITO</div>
 
 
     </div>
